@@ -90,7 +90,7 @@ static void ascon_permutate(struct state *s, uint8_t nr)
 /**
  * ascon_aead_init - initializes the ascon aead state
  *
- * @as:  [in] the ascon aead instance
+ * @as:  [in] the ascon aead
  * @key: [in] the key in two words of 64 bits
  * @s:   [in] the state
  * @k:   [in] the key
@@ -117,7 +117,7 @@ static void ascon_aead_init(struct ascon_aead *as, struct key *key,
 /**
  * ascon_aead_proc_adata - process the associated data
  *
- * @as:    [in] the ascon aead instance
+ * @as:    [in] the ascon aead
  * @s:     [in] the state
  * @ad:    [in] the associated data
  * @adlen: [in] the associated data length
@@ -163,7 +163,7 @@ static void ascon_aead_proc_adata(struct ascon_aead *as, struct state *s,
 /**
  * ascon_aead_proc_ptext - process the plaintext
  *
- * @as:   [in] the ascon aead instance
+ * @as:   [in] the ascon aead
  * @s:    [in] the state
  * @p:    [in] the plaintext
  * @plen: [in] the plaintext length
@@ -210,7 +210,7 @@ static void ascon_aead_proc_ptext(struct ascon_aead *as, struct state *s,
 /**
  * ascon_aead_proc_ctext - process the ciphertext
  *
- * @as:   [in] the ascon aead instance
+ * @as:   [in] the ascon aead
  * @s:    [in] the state
  * @c:    [in] the ciphertext
  * @clen: [in] the ciphertext length
@@ -270,7 +270,7 @@ static void ascon_aead_proc_ctext(struct ascon_aead *as, struct state *s,
 /**
  * ascon_aead_final - finalizes the ascon aead state
  *
- * @as:   [in] the ascon aead instance
+ * @as:   [in] the ascon aead
  * @key:  [in] the key in two words of 64 bits
  * @s:    [in] the state
  *
@@ -347,7 +347,7 @@ void ascon_aead_encrypt(struct ascon_aead *as, const uint8_t *k,
 	struct key key;
 	struct state s;
 
-	*clen = plen + 16;
+	*clen = plen + ASCON_TAG_SIZE;
 
 	ascon_aead_init(as, &key, &s, k, n);
 	ascon_aead_proc_adata(as, &s, ad, adlen);
@@ -366,7 +366,7 @@ int ascon_aead_decrypt(struct ascon_aead *as, const uint8_t *k,
 	struct key key;
 	struct state s;
 
-	*plen = clen - 16;
+	*plen = clen - ASCON_TAG_SIZE;
 	clen = *plen;
 
 	ascon_aead_init(as, &key, &s, k, n);

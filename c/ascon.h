@@ -10,6 +10,8 @@
 
 #include <inttypes.h>
 
+#define ASCON_TAG_SIZE	16
+
 /**
  * enum - the ascon aead variant
  */
@@ -27,7 +29,7 @@ enum ascon_hash_variant {
 };
 
 /**
- * struct ascon_aead - the ascon aead instance
+ * struct ascon_aead - the ascon aead
  *
  * @r: the rate in bytes
  * @a: permutation rounds a
@@ -44,7 +46,7 @@ struct ascon_aead {
 };
 
 /**
- * struct ascon_hash - the ascon hash instance
+ * struct ascon_hash - the ascon hash
  *
  * @r: the rate in bytes
  * @a: permutation rounds a
@@ -81,7 +83,7 @@ void ascon_hash_setup(struct ascon_hash *as, enum ascon_hash_variant v);
 /**
  * ascon_aead_encrypt - authenticated encryption with associate data
  *
- * @as:    [in] the ascon aead instance
+ * @as:    [in] the ascon aead
  * @k:     [in] the key
  * @n:     [in] the nonce
  * @ad:    [in] the associated data
@@ -102,7 +104,7 @@ void ascon_aead_encrypt(struct ascon_aead *as, const uint8_t *k,
 /**
  * ascon_aead_decrypt - verified decryption with associate data
  *
- * @as:    [in] the ascon aead instance
+ * @as:    [in] the ascon aead
  * @k:     [in] the key
  * @n:     [in] the nonce
  * @ad:    [in] the associated data
@@ -125,7 +127,7 @@ int ascon_aead_decrypt(struct ascon_aead *as, const uint8_t *k,
 /**
  * ascon_hash_output - outputs the hash value with a length of 32 bytes
  *
- * @as:     [in] the ascon instance
+ * @as:     [in] the ascon hash
  * @m:      [in] the message
  * @mlen:   [in] the message length
  * @out:    [out] the output
@@ -139,7 +141,7 @@ void ascon_hash_output(struct ascon_hash *as, const uint8_t *m, uint32_t mlen,
 /**
  * ascon_xof_output - outputs the hash value with the specified output length
  *
- * @as:     [in] the ascon instance
+ * @as:     [in] the ascon hash
  * @m:      [in] the message
  * @mlen:   [in] the message length
  * @out:    [out] the output

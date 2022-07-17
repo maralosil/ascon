@@ -17,7 +17,7 @@ int main(void)
 	const uint8_t n[] = "Only used once.";
 	const uint8_t p[] = "Your voice is always heard. — NSA";
 	const uint8_t ad[] = "The enemy knows the system. — Claude Shannon";
-	uint8_t c[sizeof(p) + 16];
+	uint8_t c[sizeof(p) + ASCON_TAG_SIZE];
 	uint8_t q[sizeof(p)];
 	uint32_t clen, qlen;
 	struct ascon_aead as;
